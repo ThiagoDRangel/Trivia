@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Button from './Button';
+import Timer from './Timer';
 // import { decode } from 'he';
 
 class QuestionCard extends Component {

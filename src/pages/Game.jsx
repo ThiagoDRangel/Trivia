@@ -33,10 +33,26 @@ class Game extends Component {
       questions: data.results,
     });
   }
-  
+
   render() {
-    return (<h1>Game</h1>);
+    const { history } = this.props;
+    const { questions } = this.state;
+
+    return (
+      <main>
+        <Header history={ history } />
+        {questions.length && 
+          <QuestionCard question={ questions[0] } /> }
+      </main>
+    );
   }
 }
 
+Game.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
+
 export default Game;
+
