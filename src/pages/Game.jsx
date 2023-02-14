@@ -17,11 +17,23 @@ class Game extends Component {
   handleToken = async () => {
     const { history } = this.props;
     const token = localStorage.getItem('token');
-    const TOKEN_ERROR = 3;
+    const API_ERROR = 3;
     const data = await fetchApi(
       `${urlToken}amount=5&token=${token}`);
-    console.log('data', data);
+    
+    switch(data) {
+      case API_ERROR:
+        localStorage.removeItem('token');
+        history.push('/');
+        break;
+      default:
+        console.log('Está funcionando');
+    }
+    this.setState({
+      questions: data.results,
+    });
   }
+  
   render() {
     return (<h1>Game</h1>);
   }
