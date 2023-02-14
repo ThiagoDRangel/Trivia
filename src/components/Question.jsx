@@ -45,7 +45,7 @@ class Question extends Component {
   }
 
   render() {
-    const { handleNext, question: { category, question }, randomQuestions } = this.props;
+    const { handleNext, question, randomQuestions } = this.props;
     const { isAnswerSelected, isTimeOut } = this.state;
     const selected = isAnswerSelected || isTimeOut;
     return (
@@ -59,8 +59,8 @@ class Question extends Component {
         </section>
         <section className="question-body">
           <div className="question-category">
-            <h2>{category}</h2>
-            <h3>{question} </h3>
+            <h2>{question.category}</h2>
+            <h3>{question.question} </h3>
             {!isAnswerSelected && (
               <Timer
                 isTimeOut={isTimeOut}
