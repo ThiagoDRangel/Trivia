@@ -4,19 +4,20 @@ import timerIcon from '../images/timer.png';
 
 class Timer extends Component {
   state = {
-    second: 30,
+    isClear: false,
+    seconds: 30,
   };
 
   componentDidMount() {
     const SECOND = 1000;
-    const { setTimeOut } = this.props;
+    const { isSetTimeOut } = this.props;
 
-    this.play = setInterval(() => {
+    this.interval = setInterval(() => {
       this.setState((prev) => ({
-        second: prev.second -1,
+        seconds: prev.seconds -1,
       }), () => {
-        const { second } = this.state;
-        setTimeOut(second);
+        const { seconds } = this.state;
+        isSetTimeOut(seconds);
       });
     }, SECOND);
   }
@@ -26,20 +27,21 @@ class Timer extends Component {
   }
 
   clearTimer = () => {
-    const { isTimedOut } = this.props;
-    const { second } = this.state;
+    const { isTimeOut } = this.props;
+    const { isClear, seconds } = this.state;
 
-    if (isTimedOut || second === 0) {
+    if ((isTimeOut || seconds === 0) && !isClear) {
       clearInterval(this.interval);
     }
   };
 
   render() {
-    const { second } = this.state;
+    const { seconds } = this.state;
+    this.clearTimer();
     return (
       <main className="question-timer">
         <img alt="cronometro" src={ timerIcon } />
-        {`Tempo: ${second}`}
+        {`Tempo: ${seconds}`}
       </main>
     );
   }
@@ -47,7 +49,7 @@ class Timer extends Component {
 
 Timer.propTypes = {
   isTimeOut: PropTypes.bool,
-  setTimeOut: PropTypes.func,
+  isSetTimeOut: PropTypes.func,
 }.isRequired;
 
 export default Timer;

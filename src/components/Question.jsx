@@ -7,7 +7,7 @@ import totalScore from '../helpers/totalScore';
 import { saveScore } from '../redux/actions/player';
 import triviaIcon from '../images/logo.jpg';
 import trybe from '../images/trybe.png';
-// import { decode } from 'he';
+import { decode } from 'he';
 
 class Question extends Component {
   state = {
@@ -33,7 +33,7 @@ class Question extends Component {
     });
   }
 
-  setTimeOut = (seconds) => {
+  isSetTimeOut = (seconds) => {
     if (seconds === 0) {
       this.setState({
         isTimeOut: true,
@@ -49,59 +49,66 @@ class Question extends Component {
     const { isAnswerSelected, isTimeOut } = this.state;
     const selected = isAnswerSelected || isTimeOut;
     return (
-      <main>
-        <section className="question">
+      <>
+        <div className="question">
           <img
-            alt="trivia"
-            className="trivia-icon"
             src={ triviaIcon }
+            alt="Ícone do Trívia"
+            className="triviaIcon"
           />
-        </section>
-        <section className="question-body">
-          <div className="question-category">
-            <h2>{question.category}</h2>
-            <h3>{question.question} </h3>
+          <div className="questionBody">
+            <div className="questionCategory">
+              <h2 data-testid="question-category">{question.category}</h2>
+            </div>
+            <h3 data-testid="question-text">{decode(question.question)}</h3>
             {!isAnswerSelected && (
               <Timer
-                isTimeOut={isTimeOut}
-                setTimeOut={ this.setTimeOut }
+                isTimedOut={ isTimeOut }
+                setTimedOut={ this.setTimedOut }
               />
             )}
           </div>
           <img
-            alt="icon trybe"
-            className="trybe-icon"
             src={ trybe }
+            alt="Ícone da Trybe"
+            className="trybeIcon"
           />
-        </section>
-        <section className="secondary">
-          <div clasName="question-answers">
-            {randomQuestions.map((question) => (
+        </div>
+        <div className="secondary">
+          <div
+            data-testid="answer-options"
+            className="questionAnswers"
+          >
+            {randomQuestions.map((answer) => (
               <Button
-                customClass={ isAnswerSelected ? question.class : 'option' }
+                testId={
+                  answer.value ? 'correct-answer' : `wrong-answer-${answer.index}`
+                }
+                key={ answer.name }
+                text={ decode(answer.name) }
+                handleClick={ () => this.handleClick(answer.value) }
+                customClass={ isAnswerSelected ? answer.class : 'option' }
                 disabled={ selected }
-                handleClick={ () => this.handleClick(question.value) }
-                key={ question.name }
-                text={ question.name }
               />
             ))}
           </div>
           {selected && (
             <Button
-              customClass="buttonNext"
+              testId="btn-next"
               handleClick={ handleNext }
               text="Next"
+              customClass="buttonNext"
             />
           )}
-        </section>
-      </main>
+        </div>
+      </>
     );
   }
 }
 
+export default connect()(Question);
+
 Question.propTypes = {
   question: PropTypes.shape({}),
 }.isRequired;
-
-export default connect()(Question);
 
