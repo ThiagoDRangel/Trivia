@@ -1,4 +1,4 @@
-const score = (question, time) => {
+const totalScore = (question, time) => {
   const HIT = 10;
   const rule = 3;
 
@@ -18,4 +18,4 @@ const score = (question, time) => {
   }
 };
 
-export default score;
+export default totalScore;
