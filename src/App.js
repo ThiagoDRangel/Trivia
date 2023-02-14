@@ -9,13 +9,13 @@ import Settings from './pages/Settings';
 class App extends Component {
   render() {
     return (
-      <main>
+      <main className="App">
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/game" component={ Game } />
           <Route exact path="/settings" component={ Settings } />
           <Route exact path="/ranking" component={ Ranking } />
-          <Route exact path="/Feedback" component={ Feedback } />
+          <Route exact path="/feedback" component={ Feedback } />
         </Switch>
       </main>
     );

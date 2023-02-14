@@ -25,7 +25,7 @@ export const loginRequest = (name, gravatarEmail, push) => {
   };
 };
 
-export const saveScore = (score, assertions) => ({
+export const saveScore = (assertions, score) => ({
   type: SAVE_SCORE,
   payload: {
     assertions,
