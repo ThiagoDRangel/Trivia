@@ -1,6 +1,6 @@
 export const checkEmail = (event) => {
-  const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i;
-  return regex.test.apply(event);
+  const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  return regex.test(event);
 };
 
 export const checkName = (event) => {

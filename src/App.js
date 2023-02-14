@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import logo from './trivia.png';
 import Login from './pages/Login';
+import Game from './pages/Game';
+import Ranking from './pages/Ranking';
+import Feedback from './pages/Feedback';
+import Settings from './pages/Settings';
 
 class App extends Component {
   render() {
     return (
       <main>
-        <header>
-          <img
-            alt="logo"
-            className="app-logo"
-            src={ logo }
-          />
-          <p>Sua vez!</p>
-          <Switch>
-            <Route exact path="/" component={ Login } />
-          </Switch>
-        </header>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route exact path="/game" component={ Game } />
+          <Route exact path="/settings" component={ Settings } />
+          <Route exact path="/ranking" component={ Ranking } />
+          <Route exact path="/Feedback" component={ Feedback } />
+        </Switch>
       </main>
     );
   }
