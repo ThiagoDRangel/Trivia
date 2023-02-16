@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+header img {
+  width: 0;
+}
+
+.user-container img {
+  width: 80px;
+}
+
+img {
+  width: 30px;
+}
+
+.correct-answer {
+  background-color: green;
+  border: 3px solid green;
+  color: white;
+}
+
+.wrong-answer {
+  background-color: rgb(162, 15, 15);
+  border: 3px solid rgb(162, 15, 15);
+  color: white;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+button { 
+  cursor: pointer;
+}
+
+.questions-container {
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-flow: column;
+  height: 350px;
+  justify-content: space-between;
+  margin-top: 100px;
+  padding: 20px;
+  width: 300px;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.answers-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+  margin-top: 50px;
+  padding-right: 40px;
+}
+
+button {
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  width: 100px;
+}
+
+.next-button {
+  background-color: rgb(122, 122, 189);
+  margin-top: 30px;
+}
+
+.logo-trivia2 {
+  height: 60px;
+  margin-left: 20px;
+  width: 80px;
+}
+
+.category {
+  align-items: center;
+  background-color: purple;
+  border-radius: 15px;
+  color: white;
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  height: 40px;
+  justify-content: center;
+  width: 240px;
+}
+
+.question {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.timer {
+  color: red;
+  font-size: 18px;
+}
+
+@media screen and ( min-width : 500px ) {
+
+  .logo-trivia2 {
+    height: 100px;
+    width: 200px;
+  }
+
+  .questions-container {
+    height: 400px;
+    padding: 40px;
+    width: 600px;
+  }
+
+  button {
+    height: 50px;
+    width: 400px;
+  }
+
+  .category {
+    font-size: 24px;
+    height: 60px;
+    width: 500px;
+  }
+
+  .question {
+    font-size: 24px;
+  }
+
+  .timer {
+    font-size: 20px;
+    font-weight: 700;
+  }
+}

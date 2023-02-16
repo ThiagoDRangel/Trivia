@@ -1,77 +1,119 @@
-import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
-import {
-  checkEmail,
-  checkName
-} from '../helpers/validation';
-import Input from '../components/Input';
-import Button from '../components/Button';
-import { loginRequest } from '../redux/actions/player';
+import { getTokenApi } from '../services/fetchApi';
+import { saveInfo } from '../redux/actions';
+import '../styles/Login.css';
 import logo from '../images/logo.jpg';
-import config from '../images/config.png';
+import trybe from '../images/trybe.png';
 
-class Login extends Component {
+
+class Login extends React.Component {
   state = {
-    email: '',
     isDisabled: true,
     name: '',
+    email: '',
   };
 
-  handleChange = ({ target: { name, value } }) => {
+  verificationEmail = () => {
+    const { email, name } = this.state;
+    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    const regexEmail = regex.test(email);
+    if (regexEmail && name) {
+      this.setState({ isDisabled: false });
+    } else {
+      this.setState({ isDisabled: true });
+    }
+  };
+
+  handleChange = ({ target }) => {
+    const { name, value } = target;
     this.setState({
       [name]: value,
-    }, () => {
-      const { name, email } = this.state;
-      this.setState({
-        isDisabled: !checkName(name) || !checkEmail(email),
-      });
-    });
+    }, this.verificationEmail);
   };
 
-  handleClick = () => {
+  handleClick = async () => {
+    const { history, dispatch } = this.props;
     const { name, email } = this.state;
-    const { history: { push }, dispatch } = this.props;
-    dispatch(loginRequest(name, email, push));
-  }
+    const token = await getTokenApi();
+    localStorage.setItem('token', token);
+    dispatch(saveInfo({ name, email }));
+    history.push('/game');
+  };
+
+  clickSettings = () => {
+    const { history } = this.props;
+    history.push('./settings');
+  };
 
   render() {
     const { name, email, isDisabled } = this.state;
-    const { history: { push } } = this.props;
     return (
-      <main className="login">
-        <img alt="Ícone" className="triviaIcon" src={ logo } />
-        
-        <form className="formLogin">
+      <main className="main-form">
+        <header>
+          <img src={ logo } alt="logo-quiz" className="logo-quiz" />
+        </header>
 
-          <Button
-            customClass="buttonConfig"
-            handleClick={ () => push('/settings') }
-            image={ config }
-          />
-          <Input
-            name="name"
-            placeholder="Digite o seu nome"
-            handleChange={ this.handleChange }
-            type="name"
-            value={ name }
-          />
-          <Input
-            name="email"
-            placeholder="Digite seu melhor e-mail"
-            handleChange={ this.handleChange }
-            type="email"
-            value={ email }
-          />
-          <Button
-            customClass="buttonLogin"
+        <form>
+          <label htmlFor="input-name">
+            <input
+              autoComplete="off"
+              placeholder="Digite seu nome"
+              type="text"
+              className="input-name"
+              onChange={ this.handleChange }
+              name="name"
+              value={ name }
+            />
+          </label>
+
+          <label htmlFor="input-email">
+            <input
+              autoComplete="off"
+              placeholder="Digite seu melhor e-mail"
+              type="text"
+              className="input-email"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
+            />
+          </label>
+
+          <button
+            autoComplete="off"
+            className="btn-play"
+            data-testid="btn-play"
             disabled={ isDisabled }
-            handleClick={ this.handleClick }
-            text="Play"
-          />
+            type="button"
+            onClick={ this.handleClick }
+          >
+            Jogar!
+          </button>
+          <button
+            autoComplete="off"
+            className="btn-config"
+            data-testid="btn-settings"
+            type="button"
+            onClick={ this.clickSettings }
+            
+          >
+            Configurações
+          </button>
         </form>
+        <footer>
+          <img src={ trybe } alt="icone trybe" className="icone-trybe" />
+        </footer>
       </main>
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
 
 export default connect()(Login);
