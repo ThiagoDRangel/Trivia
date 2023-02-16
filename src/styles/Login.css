@@ -1,0 +1,124 @@
+body {
+  background-image: url('../images/fundo.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size : 99% 99%;
+  display: flex;
+}
+
+.main-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  
+}
+
+header {
+  display: inline;
+  text-align: center;
+  background-color: #f4c430;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  height: 375px;
+  width: 370px;
+}
+
+@keyframes balanco {
+
+  5% { transform: rotate(0);}
+
+  60% { transform: rotate(10deg); }
+
+  95% { transform: rotate(0); }
+}
+
+.logo-quiz {
+  animation: balanco 1s ease-in-out infinite;
+  border-radius: 50%;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  width: 100px;
+}
+
+form {
+  align-items: center;
+  background-color: white;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btn-play:enabled {
+  background-color: green;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-config:hover {
+  background-color: gray;
+  color: white;
+}
+
+input {
+  border-color: rgb(122, 122, 189);
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  height: 20px;
+  text-align: center;
+  width: 200px;
+}
+
+input::placeholder {
+  font-size: 13px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+}
+
+.icone-trybe {
+  margin: 20px 20px;
+  width: 50px;
+}
+
+@media screen and ( min-width : 500px ) {
+
+  form {
+    height: 30vh;
+    width: 500px;
+  }
+
+  .logo-quiz {
+    width: 300px;
+  }
+
+  body {
+    height: 130vh;
+  }
+
+  input {
+    color: gray;
+    font-size: 16px;
+    height: 40px;
+    width: 400px;
+  }
+
+  .btn-play {
+    color: gray;
+    font-size: 16px;
+    height: 40px;
+    width: 400px;
+  }
+
+  .btn-config {
+    color: gray;
+    font-size: 16px;
+    height: 40px;
+    width: 400px;
+  }
+
+}
